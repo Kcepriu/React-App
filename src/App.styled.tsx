@@ -8,4 +8,5 @@ export const WrapPage = styled.div`
 
 export const WrapBody = styled.div`
   flex-grow: 1;
+  overflow-y: auto;
 `;

@@ -4,7 +4,8 @@ import MainLayout from "./layouts/MainLayout/MainLayout";
 import * as theme from "./theme";
 import * as Styled from "./app.styled";
 import Header from "./components/Header/Header";
-import TaskList from "./components/TaskList/TaskList";
+import TaskBoard from "./components/TaskBoard/TaskBoard";
+
 import { WrapPage, WrapBody } from "./App.styled";
 import "./App.css";
 
@@ -16,7 +17,7 @@ function App() {
         <WrapPage>
           <Header />
           <WrapBody>
-            <TaskList />
+            <TaskBoard />
           </WrapBody>
         </WrapPage>
       </MainLayout>
