@@ -15,7 +15,7 @@ const Task: FC<IProps> = ({ task }) => {
     <WrapCard>
       <WrapHeader>
         <h2>{name}</h2>
-        <ButtonMenuTask />
+        <ButtonMenuTask task={task} />
       </WrapHeader>
 
       <p>{description}</p>

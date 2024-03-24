@@ -3,10 +3,11 @@ import { Button } from "./ButtonAddTask.styled";
 import { FiPlus } from "react-icons/fi";
 import CreateEditTask from "../../CreateEditTask/CreateEditTask";
 import { useModalWindow } from "../../../hooks/useModalWindow";
+import { EmptyTask } from "../../../types/task.type";
 
 const ButtonAddTask: FC = () => {
   const { MobileWindowComponent, setShowModal } = useModalWindow({
-    contentComponent: <CreateEditTask />,
+    contentComponent: <CreateEditTask isEdit={true} task={{ ...EmptyTask }} />,
   });
 
   return (

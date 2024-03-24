@@ -7,6 +7,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { useModalWindow } from "../../../../hooks/useModalWindow";
 import CreateEditTaskList from "../../../CreateEditTaskList/CreateEditTaskList";
 import CreateEditTask from "../../../CreateEditTask/CreateEditTask";
+import { EmptyTask } from "../../../../types/task.type";
 
 import "@szhsin/react-menu/dist/index.css";
 import { Button, Item } from "./ButtonMenuHeader.styled";
@@ -16,7 +17,7 @@ const ButtonMenuHeader: FC = () => {
     MobileWindowComponent: MobileWindowComponentCreate,
     setShowModal: setShowModalCreate,
   } = useModalWindow({
-    contentComponent: <CreateEditTask />,
+    contentComponent: <CreateEditTask isEdit={true} task={{ ...EmptyTask }} />,
   });
 
   const {

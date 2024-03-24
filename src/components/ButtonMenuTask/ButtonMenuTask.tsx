@@ -8,13 +8,17 @@ import CreateEditTask from "../CreateEditTask/CreateEditTask";
 import { Button, Item } from "./ButtonMenuTask.styled";
 
 import "@szhsin/react-menu/dist/index.css";
+import { ITask } from "../../types/task.type";
 
-const ButtonMenuTask: FC = () => {
+interface IProps {
+  task: ITask;
+}
+const ButtonMenuTask: FC<IProps> = ({ task }) => {
   const {
     MobileWindowComponent: MobileWindowComponentEdit,
     setShowModal: setShowModalEdit,
   } = useModalWindow({
-    contentComponent: <CreateEditTask />,
+    contentComponent: <CreateEditTask isEdit={false} task={task} />,
   });
 
   const handleDeleteTaskList = () => {

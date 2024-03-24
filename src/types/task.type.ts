@@ -18,3 +18,11 @@ export interface ITask {
   priority: TypePriority;
   // status: TaskList;
 }
+
+export const EmptyTask: ITask = {
+  id: 0,
+  name: "",
+  description: "",
+  due_date: Date.now(),
+  priority: TypePriority.LOW,
+};
