@@ -2,6 +2,7 @@ import { FC } from "react";
 import { FiCalendar } from "react-icons/fi";
 import { ITask } from "../../types/task.type";
 import ButtonMenuTask from "../ButtonMenuTask/ButtonMenuTask";
+import MenuMoveTo from "./MenuMoveTo/MenuMoveTo";
 import { formatDate } from "../../helpers/formatDateTime";
 import { WrapCard, WrapHeader, WrapDate, WrapPriority } from "./Task.styled";
 
@@ -26,7 +27,7 @@ const Task: FC<IProps> = ({ task }) => {
         <p>{priority}</p>
       </WrapPriority>
 
-      <p>Move to</p>
+      <MenuMoveTo />
     </WrapCard>
   );
 };
