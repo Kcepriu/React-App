@@ -2,7 +2,7 @@ import { FC } from "react";
 import { ITaskList } from "../../../types/taskList.type";
 import { FiMoreVertical } from "react-icons/fi";
 import { WrapHeader, WrapRight, Button } from "./HeaderTaskList.syled";
-
+import ButtonMenuHeader from "./ButtonMenuHeader/ButtonMenuHeader";
 interface IProps {
   taskList: ITaskList;
 }
@@ -14,9 +14,7 @@ const HeaderTaskList: FC<IProps> = ({ taskList }) => {
       <p>{name}</p>
       <WrapRight>
         <p>{count}</p>
-        <Button>
-          <FiMoreVertical size={24} />
-        </Button>
+        <ButtonMenuHeader />
       </WrapRight>
     </WrapHeader>
   );

@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { FiCalendar } from "react-icons/fi";
 import { ITask } from "../../types/task.type";
-import { FiMoreVertical } from "react-icons/fi";
+import ButtonMenuTask from "../ButtonMenuTask/ButtonMenuTask";
 import { formatDate } from "../../helpers/formatDateTime";
-import { WrapCard, Button, WrapHeader, WrapDate } from "./Task.styled";
+import { WrapCard, WrapHeader, WrapDate, WrapPriority } from "./Task.styled";
 
 interface IProps {
   task: ITask;
@@ -14,17 +14,18 @@ const Task: FC<IProps> = ({ task }) => {
     <WrapCard>
       <WrapHeader>
         <h2>{name}</h2>
-        <Button>
-          <FiMoreVertical size={24} />
-        </Button>
+        <ButtonMenuTask />
       </WrapHeader>
 
       <p>{description}</p>
       <WrapDate>
         <FiCalendar size={24} />
-        {formatDate(due_date)}
+        <p>{formatDate(due_date)}</p>
       </WrapDate>
-      <p>{priority}</p>
+      <WrapPriority data-status={priority}>
+        <p>{priority}</p>
+      </WrapPriority>
+
       <p>Move to</p>
     </WrapCard>
   );

@@ -28,6 +28,36 @@ export const Button = styled.button`
 export const WrapDate = styled.div`
   display: flex;
   gap: 12px;
+
   align-items: center;
   padding: 4px 0;
+`;
+
+export const WrapPriority = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: fit-content;
+  padding: 4px 16px;
+
+  border-radius: 20px;
+  background-color: #bbb2e9;
+
+  &::before {
+    content: " ";
+    width: 8px;
+    height: 8px;
+    display: block;
+    border-radius: 50%;
+    background-color: orange;
+  }
+  &[data-status="low"]::before {
+    background-color: green;
+  }
+  &[data-status="medium"]::before {
+    background-color: orange;
+  }
+  &[data-status="high"]::before {
+    background-color: red;
+  }
 `;
