@@ -11,8 +11,12 @@ import { EmptyTask } from "../../../../types/task.type";
 
 import "@szhsin/react-menu/dist/index.css";
 import { Button, Item } from "./ButtonMenuHeader.styled";
+import { ITaskList } from "../../../../types/taskList.type";
 
-const ButtonMenuHeader: FC = () => {
+interface IProps {
+  taskList: ITaskList;
+}
+const ButtonMenuHeader: FC<IProps> = ({ taskList }) => {
   const {
     MobileWindowComponent: MobileWindowComponentCreate,
     setShowModal: setShowModalCreate,
@@ -24,7 +28,7 @@ const ButtonMenuHeader: FC = () => {
     MobileWindowComponent: MobileWindowComponentEdit,
     setShowModal: setShowModalEdit,
   } = useModalWindow({
-    contentComponent: <CreateEditTaskList />,
+    contentComponent: <CreateEditTaskList isEdit={false} taskList={taskList} />,
   });
 
   const handleDeleteTaskList = () => {

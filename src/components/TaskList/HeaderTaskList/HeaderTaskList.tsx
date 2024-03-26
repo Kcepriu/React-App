@@ -13,7 +13,7 @@ const HeaderTaskList: FC<IProps> = ({ taskList }) => {
       <p>{name}</p>
       <WrapRight>
         <p>{count}</p>
-        <ButtonMenuHeader />
+        <ButtonMenuHeader taskList={taskList} />
       </WrapRight>
     </WrapHeader>
   );
