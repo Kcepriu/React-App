@@ -1,9 +1,14 @@
 import { create } from "zustand";
 import httpServices from "../service/http";
-import { ITaskListWithTask, ITaskListWithCount } from "../types/taskList.type";
+import {
+  ITaskListWithTask,
+  ITaskListWithCount,
+  ITaskList,
+} from "../types/taskList.type";
 
 interface IStateTaskList {
   tasksList: ITaskListWithTask[];
+  onlyTasksList: ITaskList[];
   isError: boolean;
   isLoad: boolean;
   messageError: string;
@@ -15,10 +20,21 @@ interface IStateTaskList {
   deleteTaskList: (taskList: ITaskListWithCount) => Promise<void>;
   setIsError: (isError: boolean) => void;
   setUpdateOperationOk: (updateOperationOk: boolean) => void;
+  setIsLoad: (isLoad: boolean) => void;
 }
+
+const createOnlyTaskList = (taskList: ITaskListWithTask[]): ITaskList[] => {
+  const onlyTasksList = taskList.map((taskList) => {
+    const { tasks, ...newTaskList } = taskList;
+    return newTaskList;
+  });
+
+  return onlyTasksList;
+};
 
 export const useTaskList = create<IStateTaskList>()((set, get) => ({
   tasksList: [],
+  onlyTasksList: [],
   isLoad: false,
   isError: false,
   messageError: "",
@@ -36,13 +52,21 @@ export const useTaskList = create<IStateTaskList>()((set, get) => ({
     }));
   },
 
+  setIsLoad: (isLoad: boolean) => {
+    return set((state) => ({
+      isLoad,
+    }));
+  },
+
   fetchTasksList: async () => {
     set({ isLoad: true, isError: false, messageError: "" });
 
     try {
       const { code, data, message } = await httpServices.fetchAllTaskList();
+
       set({
         tasksList: data,
+        onlyTasksList: createOnlyTaskList(data),
         isError: code !== 200,
         messageError: message,
       });
@@ -75,6 +99,7 @@ export const useTaskList = create<IStateTaskList>()((set, get) => ({
 
         set({
           tasksList: newTasksList,
+          onlyTasksList: createOnlyTaskList(newTasksList),
           isError: code !== 201,
           messageError: message,
           updateOperationOk: code === 201,
@@ -114,6 +139,7 @@ export const useTaskList = create<IStateTaskList>()((set, get) => ({
 
         set({
           tasksList: newTasksList,
+          onlyTasksList: createOnlyTaskList(newTasksList),
           isError: code !== 200,
           messageError: message,
         });
@@ -163,6 +189,7 @@ export const useTaskList = create<IStateTaskList>()((set, get) => ({
 
         set({
           tasksList: newTasksList,
+          onlyTasksList: createOnlyTaskList(newTasksList),
           isError: code !== 200,
           messageError: message,
           updateOperationOk: code === 200,

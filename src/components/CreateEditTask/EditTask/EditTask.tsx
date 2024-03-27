@@ -19,13 +19,14 @@ import {
   WrapTitle,
 } from "./EditTask.styled";
 import "react-datepicker/dist/react-datepicker.css";
+import { useTaskList } from "../../../stores/taskList.store";
 
 interface IProps {
   task: ITask;
   handleSaveTask: () => void;
 }
 const EditTask: FC<IProps> = ({ task, handleSaveTask }) => {
-  const { priority } = task;
+  const [onlyTasksList] = useTaskList((state) => [state.onlyTasksList]);
 
   const handlerSubmitForm = async (
     values: ITask,
@@ -54,20 +55,27 @@ const EditTask: FC<IProps> = ({ task, handleSaveTask }) => {
   });
 
   useEffect(() => {
-    const { id, name, description, due_date, priority } = task;
+    const { id, name, description, due_date, priority, status } = task;
     try {
       setFieldValue("id", id);
       setFieldValue("name", name);
       setFieldValue("description", description);
       setFieldValue("due_date", due_date);
       setFieldValue("priority", priority);
+      setFieldValue("status", status);
     } catch {}
   }, [task, setFieldValue]);
 
   const handleChangeDate = (date: Date) => {
-    !!date && setFieldValue("due_date", date.getTime());
+    !!date && setFieldValue("due_date", String(date.getTime()));
   };
 
+  const handleChangeStatus = (event: any) => {
+    const newValue = onlyTasksList.find(
+      (taskList) => taskList.id === event.target.value
+    );
+    !!newValue && setFieldValue("status", newValue);
+  };
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -94,7 +102,27 @@ const EditTask: FC<IProps> = ({ task, handleSaveTask }) => {
               <LiaCrosshairsSolid size={24} />
               Status
             </TitleLine>
-            <p>{priority} ERROR</p>
+            {values.status.id > 0 && (
+              <Select
+                id="status"
+                labelId="status"
+                name="status"
+                value={values.status.id}
+                // label="Status"
+                onChange={handleChangeStatus}
+                onBlur={handleBlur}
+                error={touched.status && Boolean(errors.status)}
+                size="small"
+              >
+                {onlyTasksList.map((status) => {
+                  return (
+                    <MenuItem value={status.id} key={status.id}>
+                      {status.name}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            )}
           </LineInformation>
 
           <LineInformation>
@@ -103,7 +131,7 @@ const EditTask: FC<IProps> = ({ task, handleSaveTask }) => {
               Due date
             </TitleLine>
             <DatePicker
-              selected={new Date(values.due_date)}
+              selected={new Date(Number(values.due_date))}
               onChange={handleChangeDate}
               dateFormat="EEE, dd LLL"
             />
@@ -119,7 +147,7 @@ const EditTask: FC<IProps> = ({ task, handleSaveTask }) => {
               labelId="priority"
               name="priority"
               value={values.priority}
-              label="Priority"
+              // label="Priority"
               onChange={handleChange}
               onBlur={handleBlur}
               error={touched.priority && Boolean(errors.priority)}

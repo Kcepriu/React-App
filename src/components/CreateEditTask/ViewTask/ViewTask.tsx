@@ -19,7 +19,7 @@ interface IProps {
   handleEditTask: () => void;
 }
 const ViewTask: FC<IProps> = ({ task, handleEditTask }) => {
-  const { name, description, due_date, priority } = task;
+  const { name, description, due_date, priority, status } = task;
   return (
     <>
       <WrapTitle>
@@ -37,7 +37,7 @@ const ViewTask: FC<IProps> = ({ task, handleEditTask }) => {
             <LiaCrosshairsSolid size={24} />
             Status
           </TitleLine>
-          <p>{priority} ERROR</p>
+          <p>{status.name}</p>
         </LineInformation>
 
         <LineInformation>
@@ -45,7 +45,7 @@ const ViewTask: FC<IProps> = ({ task, handleEditTask }) => {
             <LuCalendar size={24} />
             Due date
           </TitleLine>
-          <p>{formatDate(due_date)}</p>
+          <p>{formatDate(Number(due_date))}</p>
         </LineInformation>
 
         <LineInformation>

@@ -8,7 +8,7 @@ interface IProps {
   isEdit: boolean;
   taskList: ITaskListWithCount;
   handleCloseModal: () => void;
-  isCloseWindowAfterSave: boolean;
+  isCloseWindowAfterSave?: boolean;
 }
 
 const CreateEditTaskList: FC<IProps> = ({

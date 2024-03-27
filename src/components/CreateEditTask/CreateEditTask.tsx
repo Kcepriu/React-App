@@ -8,9 +8,16 @@ import EditTask from "./EditTask/EditTask";
 interface IProps {
   isEdit: boolean;
   task: ITask;
+  handleCloseModal: () => void;
+  isCloseWindowAfterSave?: boolean;
 }
 
-const CreateEditTask: FC<IProps> = ({ isEdit, task }) => {
+const CreateEditTask: FC<IProps> = ({
+  isEdit,
+  task,
+  handleCloseModal,
+  isCloseWindowAfterSave = false,
+}) => {
   const [onlyView, setOnlyView] = useState(true);
 
   useEffect(() => setOnlyView(!isEdit), [isEdit, setOnlyView]);
@@ -20,8 +27,7 @@ const CreateEditTask: FC<IProps> = ({ isEdit, task }) => {
   };
 
   const handleSaveTask = () => {
-    console.log("Save task 1");
-    setOnlyView(true);
+    isCloseWindowAfterSave ? handleCloseModal() : setOnlyView(true);
   };
 
   return (
@@ -35,7 +41,7 @@ const CreateEditTask: FC<IProps> = ({ isEdit, task }) => {
       </WrapTask>
       <WrapHistory>
         <h2>Activity</h2>
-        <HistoryList />
+        <HistoryList task={task} />
       </WrapHistory>
     </WrapPage>
   );

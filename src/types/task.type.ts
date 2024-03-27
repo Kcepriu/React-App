@@ -17,7 +17,7 @@ export interface ITask {
   id: number;
   name: string;
   description: string;
-  due_date: number;
+  due_date: string;
   priority: TypePriority;
   status: ITaskList;
 }
@@ -26,7 +26,7 @@ export const EmptyTask: ITask = {
   id: 0,
   name: "",
   description: "",
-  due_date: Date.now(),
+  due_date: String(Date.now()),
   priority: TypePriority.LOW,
   status: EmptyTaskList,
 };

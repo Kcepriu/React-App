@@ -14,13 +14,13 @@ const TaskList: FC<IProps> = ({ taskList }) => {
   return (
     <WrapList>
       <HeaderTaskList taskList={{ ...newTaskList, count: tasks.length }} />
-      <ButtonAddTask />
+      <ButtonAddTask taskList={{ ...newTaskList, count: tasks.length }} />
       <List>
-        {/* {tasks.map((task) => (
+        {tasks.map((task) => (
           <li key={task.id}>
             <Task task={task} />
           </li>
-        ))} */}
+        ))}
       </List>
     </WrapList>
   );

@@ -5,6 +5,7 @@ import {
   IResponseOneTaskListWithCode,
 } from "../types/taskList.dto";
 import { ITaskList } from "../types/taskList.type";
+import { IResponseHistoriesWithCode } from "../types/history.type";
 
 class HttpService {
   private instance: AxiosInstance;
@@ -84,7 +85,6 @@ class HttpService {
     }
   }
 
-  // ! no test
   async updateTaskList(
     taskList: ITaskList
   ): Promise<IResponseOneTaskListWithCode> {
@@ -142,6 +142,28 @@ class HttpService {
         code: 400,
         data: null,
         message: axiosMessage || error.message,
+      };
+    }
+  }
+
+  // History
+  async fetchAllHistory(): Promise<IResponseHistoriesWithCode> {
+    try {
+      const { status, data } = await this.instance.get(
+        BACKEND_ROUTES.TASK_HISTORY
+      );
+      const historyList = status === 200 ? data : [];
+
+      return {
+        code: status,
+        data: historyList,
+        message: "",
+      };
+    } catch (e: any) {
+      return {
+        code: 400,
+        data: [],
+        message: e.message,
       };
     }
   }

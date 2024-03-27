@@ -20,12 +20,20 @@ interface IProps {
 
 const ButtonMenuHeader: FC<IProps> = ({ taskList }) => {
   const [deleteTaskList] = useTaskList((state) => [state.deleteTaskList]);
+  const { count, ...taskListWithoutCount } = taskList;
 
   const {
     MobileWindowComponent: MobileWindowComponentCreate,
     setShowModal: setShowModalCreate,
   } = useModalWindow({
-    contentComponent: <CreateEditTask isEdit={true} task={{ ...EmptyTask }} />,
+    contentComponent: (
+      <CreateEditTask
+        isEdit={true}
+        task={{ ...EmptyTask, status: taskListWithoutCount }}
+        handleCloseModal={() => setShowModalCreate(false)}
+        isCloseWindowAfterSave
+      />
+    ),
   });
 
   const {

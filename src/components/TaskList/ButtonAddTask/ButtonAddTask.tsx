@@ -4,10 +4,24 @@ import { FiPlus } from "react-icons/fi";
 import CreateEditTask from "../../CreateEditTask/CreateEditTask";
 import { useModalWindow } from "../../../hooks/useModalWindow";
 import { EmptyTask } from "../../../types/task.type";
+import { ITaskListWithCount } from "../../../types/taskList.type";
 
-const ButtonAddTask: FC = () => {
+interface IProps {
+  taskList: ITaskListWithCount;
+}
+
+const ButtonAddTask: FC<IProps> = ({ taskList }) => {
+  const { count, ...taskListWithoutCount } = taskList;
+
   const { MobileWindowComponent, setShowModal } = useModalWindow({
-    contentComponent: <CreateEditTask isEdit={true} task={{ ...EmptyTask }} />,
+    contentComponent: (
+      <CreateEditTask
+        isEdit={true}
+        task={{ ...EmptyTask, status: taskListWithoutCount }}
+        handleCloseModal={() => setShowModal(false)}
+        isCloseWindowAfterSave
+      />
+    ),
   });
 
   return (

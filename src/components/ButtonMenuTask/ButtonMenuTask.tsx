@@ -18,7 +18,13 @@ const ButtonMenuTask: FC<IProps> = ({ task }) => {
     MobileWindowComponent: MobileWindowComponentEdit,
     setShowModal: setShowModalEdit,
   } = useModalWindow({
-    contentComponent: <CreateEditTask isEdit={false} task={task} />,
+    contentComponent: (
+      <CreateEditTask
+        isEdit={false}
+        task={task}
+        handleCloseModal={() => setShowModalEdit(false)}
+      />
+    ),
   });
 
   const handleDeleteTaskList = () => {
@@ -27,7 +33,6 @@ const ButtonMenuTask: FC<IProps> = ({ task }) => {
 
   const handleEditTask = () => {
     setShowModalEdit(true);
-    console.log("Edit task");
   };
 
   return (

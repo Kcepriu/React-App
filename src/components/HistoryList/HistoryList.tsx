@@ -1,6 +1,11 @@
 import { FC } from "react";
+import { ITask } from "../../types/task.type";
 
-const HistoryList: FC = () => {
+interface IProps {
+  task: ITask;
+}
+
+const HistoryList: FC<IProps> = ({ task }) => {
   return (
     <>
       <p>Line 1</p>

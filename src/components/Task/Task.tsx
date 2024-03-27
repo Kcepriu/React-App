@@ -21,13 +21,13 @@ const Task: FC<IProps> = ({ task }) => {
       <p>{description}</p>
       <WrapDate>
         <FiCalendar size={24} />
-        <p>{formatDate(due_date)}</p>
+        <p>{formatDate(Number(due_date))}</p>
       </WrapDate>
       <WrapPriority data-status={priority}>
         <p>{priority}</p>
       </WrapPriority>
 
-      <MenuMoveTo />
+      <MenuMoveTo task={task} />
     </WrapCard>
   );
 };

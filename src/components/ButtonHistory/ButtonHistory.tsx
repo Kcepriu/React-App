@@ -2,13 +2,10 @@ import { FC } from "react";
 import { FiRotateCcw } from "react-icons/fi";
 import { useMobileMenu } from "../../hooks/useMobileMenu";
 import { Button } from "./ButtonHistory.styled";
+import HistoryListAll from "../HistoryListAll/HistoryListAll";
 
 const ButtonHistory: FC = () => {
-  const contentComponent = (
-    <>
-      <p>Test</p>
-    </>
-  );
+  const contentComponent = <HistoryListAll />;
 
   const { ModalMenuComponent, setShowMobileMenu } = useMobileMenu({
     contentComponent,
