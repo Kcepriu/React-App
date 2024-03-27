@@ -1,15 +1,20 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import TaskList from "../TaskList/TaskList";
+import { useTaskList } from "../../stores/taskList.store";
+import { showErrorMessage } from "../../helpers/message";
 import { List, ElementList } from "./TaskBoard.styled";
 
-const tasksList = [
-  { id: 1, name: "To Do", count: 10 },
-  { id: 2, name: "Planet", count: 10 },
-  { id: 3, name: "In Progress", count: 10 },
-  { id: 4, name: "Closed", count: 10 },
-];
-
 const TaskBoard: FC = () => {
+  const [tasksList, isError, messageError] = useTaskList((state) => [
+    state.tasksList,
+    state.isError,
+    state.messageError,
+  ]);
+
+  useEffect(() => {
+    isError && showErrorMessage(messageError);
+  }, [isError, messageError]);
+
   return (
     <div>
       <List>

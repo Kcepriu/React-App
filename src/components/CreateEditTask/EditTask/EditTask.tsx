@@ -2,7 +2,6 @@ import { FC, useEffect } from "react";
 import { FormikHelpers, useFormik } from "formik";
 import { TextField, Select, MenuItem } from "@mui/material";
 import { ITask } from "../../../types/task.type";
-
 import { LiaCrosshairsSolid } from "react-icons/lia";
 import { LiaShirtsinbulk } from "react-icons/lia";
 import { LuCalendar } from "react-icons/lu";
@@ -124,7 +123,6 @@ const EditTask: FC<IProps> = ({ task, handleSaveTask }) => {
               onChange={handleChange}
               onBlur={handleBlur}
               error={touched.priority && Boolean(errors.priority)}
-              // helperText={touched.priority && errors.priority}
               size="small"
             >
               {Object.values(TypePriority).map((priority) => (

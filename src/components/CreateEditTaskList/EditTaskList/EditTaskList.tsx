@@ -1,27 +1,46 @@
 import { FC, useEffect } from "react";
 import { FormikHelpers, useFormik } from "formik";
 import { TextField } from "@mui/material";
-import { EmptyTaskList, ITaskList } from "../../../types/taskList.type";
+import {
+  EmptyTaskListWithCount,
+  ITaskListWithCount,
+} from "../../../types/taskList.type";
 import { validationSchema } from "./validationSchema";
 import ButtonEditSave from "../../ButtonEditSave/ButtonEditSave";
+
 import { WrapTitle } from "./EditTaskList.styled";
+import { useTaskList } from "../../../stores/taskList.store";
 
 interface IProps {
-  taskList: ITaskList;
+  taskList: ITaskListWithCount;
   handleSave: () => void;
 }
 
 const EditTaskList: FC<IProps> = ({ taskList, handleSave }) => {
+  const [
+    createTaskList,
+    updateOperationOk,
+    setUpdateOperationOk,
+    updateTaskList,
+  ] = useTaskList((state) => [
+    state.createTaskList,
+    state.updateOperationOk,
+    state.setUpdateOperationOk,
+    state.updateTaskList,
+  ]);
+
   const handlerSubmitForm = async (
-    values: ITaskList,
-    { setSubmitting }: FormikHelpers<ITaskList>
+    values: ITaskListWithCount,
+    { setSubmitting }: FormikHelpers<ITaskListWithCount>
   ) => {
-    // console.log("submit", values);
-    // task = { ...values };
-    // handleSaveTask();
-    // await saveAboutUser(convertToAboutUser(values));
-    // if (addHandlerSubmitForm) addHandlerSubmitForm(values);
-    handleSave();
+    if (values.id === 0) {
+      //Create Task list
+      await createTaskList({ ...values });
+      // await createTaskList({ id: 0, name: "", count: 0 });
+    } else {
+      //Update task list
+      await updateTaskList({ ...values });
+    }
   };
 
   const {
@@ -33,7 +52,7 @@ const EditTaskList: FC<IProps> = ({ taskList, handleSave }) => {
     setFieldValue,
     handleSubmit,
   } = useFormik({
-    initialValues: EmptyTaskList,
+    initialValues: EmptyTaskListWithCount,
     validationSchema: validationSchema,
     onSubmit: handlerSubmitForm,
   });
@@ -46,6 +65,13 @@ const EditTaskList: FC<IProps> = ({ taskList, handleSave }) => {
       setFieldValue("count", count);
     } catch {}
   }, [taskList, setFieldValue]);
+
+  useEffect(() => {
+    if (updateOperationOk) {
+      setUpdateOperationOk(false);
+      handleSave();
+    }
+  }, [updateOperationOk, setUpdateOperationOk, handleSave]);
 
   return (
     <form onSubmit={handleSubmit}>

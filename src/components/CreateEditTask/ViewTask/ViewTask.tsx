@@ -1,6 +1,5 @@
 import { FC } from "react";
 import { ITask } from "../../../types/task.type";
-
 import { LiaCrosshairsSolid } from "react-icons/lia";
 import { LiaShirtsinbulk } from "react-icons/lia";
 import { LuCalendar } from "react-icons/lu";
@@ -20,7 +19,7 @@ interface IProps {
   handleEditTask: () => void;
 }
 const ViewTask: FC<IProps> = ({ task, handleEditTask }) => {
-  const { id, name, description, due_date, priority } = task;
+  const { name, description, due_date, priority } = task;
   return (
     <>
       <WrapTitle>

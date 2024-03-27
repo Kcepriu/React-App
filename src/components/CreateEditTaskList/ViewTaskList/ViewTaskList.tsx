@@ -1,11 +1,11 @@
 import { FC } from "react";
 
-import { ITaskList } from "../../../types/taskList.type";
+import { ITaskListWithCount } from "../../../types/taskList.type";
 import { WrapTitle } from "./ViewTaskList.styled";
 import ButtonEditSave from "../../ButtonEditSave/ButtonEditSave";
 
 interface IProps {
-  taskList: ITaskList;
+  taskList: ITaskListWithCount;
   handleEdit: () => void;
 }
 

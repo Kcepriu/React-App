@@ -14,7 +14,7 @@ const ButtonEditSave: FC<IProps> = ({
   title,
 }) => {
   return (
-    <Button onClick={handleButton}>
+    <Button onClick={handleButton} type="button">
       {isEdit ? <FiEdit size={16} /> : <FiSave size={16} />}
       {title}
     </Button>

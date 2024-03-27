@@ -11,12 +11,16 @@ import { EmptyTask } from "../../../../types/task.type";
 
 import "@szhsin/react-menu/dist/index.css";
 import { Button, Item } from "./ButtonMenuHeader.styled";
-import { ITaskList } from "../../../../types/taskList.type";
+import { ITaskListWithCount } from "../../../../types/taskList.type";
+import { useTaskList } from "../../../../stores/taskList.store";
 
 interface IProps {
-  taskList: ITaskList;
+  taskList: ITaskListWithCount;
 }
+
 const ButtonMenuHeader: FC<IProps> = ({ taskList }) => {
+  const [deleteTaskList] = useTaskList((state) => [state.deleteTaskList]);
+
   const {
     MobileWindowComponent: MobileWindowComponentCreate,
     setShowModal: setShowModalCreate,
@@ -28,21 +32,30 @@ const ButtonMenuHeader: FC<IProps> = ({ taskList }) => {
     MobileWindowComponent: MobileWindowComponentEdit,
     setShowModal: setShowModalEdit,
   } = useModalWindow({
-    contentComponent: <CreateEditTaskList isEdit={false} taskList={taskList} />,
+    contentComponent: (
+      <CreateEditTaskList
+        isEdit={true}
+        taskList={taskList}
+        handleCloseModal={() => setShowModalEdit(false)}
+        isCloseWindowAfterSave
+      />
+    ),
   });
 
-  const handleDeleteTaskList = () => {
+  const handleDeleteTaskList = async () => {
+    //Delete task list
     console.log("Delete task list");
+    await deleteTaskList(taskList);
   };
 
   const handleEditTaskList = () => {
+    //Edit task list
     setShowModalEdit(true);
-    console.log("Edit task list");
   };
 
   const handleCreateTask = () => {
+    // Create task list
     setShowModalCreate(true);
-    console.log("Create task list");
   };
 
   return (

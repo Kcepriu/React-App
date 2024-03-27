@@ -10,9 +10,15 @@ type Props = {
   children: React.ReactNode;
   onClose: () => void;
   isDark?: boolean;
+  closeAfterClickMouse?: boolean;
 };
 
-export const Modal: FC<Props> = ({ children, onClose, isDark = false }) => {
+export const Modal: FC<Props> = ({
+  children,
+  onClose,
+  isDark = false,
+  closeAfterClickMouse = false,
+}) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleKeyPress = useCallback(
@@ -26,11 +32,11 @@ export const Modal: FC<Props> = ({ children, onClose, isDark = false }) => {
 
   const handleOverlayClick = useCallback(
     (evt: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-      if (evt.target === evt.currentTarget) {
+      if (closeAfterClickMouse && evt.target === evt.currentTarget) {
         onClose();
       }
     },
-    [onClose]
+    [onClose, closeAfterClickMouse]
   );
 
   useEffect(() => {

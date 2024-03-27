@@ -1,3 +1,6 @@
+import { ITaskList } from "./taskList.type";
+import { EmptyTaskList } from "./taskList.type";
+
 export enum TypePriority {
   LOW = "low",
   MEDIUM = "medium",
@@ -16,7 +19,7 @@ export interface ITask {
   description: string;
   due_date: number;
   priority: TypePriority;
-  // status: TaskList;
+  status: ITaskList;
 }
 
 export const EmptyTask: ITask = {
@@ -25,4 +28,5 @@ export const EmptyTask: ITask = {
   description: "",
   due_date: Date.now(),
   priority: TypePriority.LOW,
+  status: EmptyTaskList,
 };

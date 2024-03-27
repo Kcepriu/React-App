@@ -2,13 +2,18 @@ import { FC } from "react";
 import { FiPlus } from "react-icons/fi";
 import { useModalWindow } from "../../hooks/useModalWindow";
 import CreateEditTaskList from "../CreateEditTaskList/CreateEditTaskList";
-import { EmptyTaskList } from "../../types/taskList.type";
+import { EmptyTaskListWithCount } from "../../types/taskList.type";
 import { Button } from "./ButtonAddList.styled";
 
 const ButtonAddList: FC = () => {
   const { MobileWindowComponent, setShowModal } = useModalWindow({
     contentComponent: (
-      <CreateEditTaskList isEdit={true} taskList={{ ...EmptyTaskList }} />
+      <CreateEditTaskList
+        isEdit={true}
+        taskList={{ ...EmptyTaskListWithCount }}
+        handleCloseModal={() => setShowModal(false)}
+        isCloseWindowAfterSave
+      />
     ),
   });
 

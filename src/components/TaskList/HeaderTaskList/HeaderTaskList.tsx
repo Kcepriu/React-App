@@ -1,9 +1,9 @@
 import { FC } from "react";
-import { ITaskList } from "../../../types/taskList.type";
+import { ITaskListWithCount } from "../../../types/taskList.type";
 import { WrapHeader, WrapRight } from "./HeaderTaskList.syled";
 import ButtonMenuHeader from "./ButtonMenuHeader/ButtonMenuHeader";
 interface IProps {
-  taskList: ITaskList;
+  taskList: ITaskListWithCount;
 }
 
 const HeaderTaskList: FC<IProps> = ({ taskList }) => {

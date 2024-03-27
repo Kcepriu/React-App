@@ -1,15 +1,22 @@
 import { FC, useEffect, useState } from "react";
-import { ITaskList } from "../../types/taskList.type";
+import { ITaskListWithCount } from "../../types/taskList.type";
 import ViewTaskList from "./ViewTaskList/ViewTaskList";
 import EditTaskList from "./EditTaskList/EditTaskList";
 import { WrapPage } from "./CreateEditTaskList.styled";
 
 interface IProps {
   isEdit: boolean;
-  taskList: ITaskList;
+  taskList: ITaskListWithCount;
+  handleCloseModal: () => void;
+  isCloseWindowAfterSave: boolean;
 }
 
-const CreateEditTaskList: FC<IProps> = ({ isEdit, taskList }) => {
+const CreateEditTaskList: FC<IProps> = ({
+  isEdit,
+  taskList,
+  handleCloseModal,
+  isCloseWindowAfterSave = false,
+}) => {
   const [onlyView, setOnlyView] = useState(true);
 
   useEffect(() => setOnlyView(!isEdit), [isEdit, setOnlyView]);
@@ -19,8 +26,7 @@ const CreateEditTaskList: FC<IProps> = ({ isEdit, taskList }) => {
   };
 
   const handleSave = () => {
-    console.log("Save task 1");
-    setOnlyView(true);
+    isCloseWindowAfterSave ? handleCloseModal() : setOnlyView(true);
   };
 
   return (
