@@ -14,6 +14,20 @@ export const WrapHeader = styled.div`
   justify-content: space-between;
 `;
 
+export const WrapContend = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+
+  /* &:hover {
+    background-color: blue;
+    WrapCard {
+      border-color: blue;
+    }
+  } */
+`;
+
 export const Button = styled.button`
   display: flex;
   align-items: center;
@@ -59,5 +73,11 @@ export const WrapPriority = styled.div`
   }
   &[data-status="high"]::before {
     background-color: red;
+  }
+`;
+
+export const Priority = styled.p`
+  &::first-letter {
+    text-transform: uppercase;
   }
 `;

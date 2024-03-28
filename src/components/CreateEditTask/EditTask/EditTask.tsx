@@ -50,7 +50,6 @@ const EditTask: FC<IProps> = ({ task, handleSaveTask }) => {
       //Create Task
       setIsError(true);
       // await createTask({ ...values });
-      // await createTaskList({ id: 0, name: "", count: 0 });
     } else {
       //Update task
       await updateTask({ ...values });

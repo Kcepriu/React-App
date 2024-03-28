@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import HistoryList from "../HistoryList/HistoryList";
+import HistoryListTask from "../HistoryListTask/HistoryListTask";
 import { ITask } from "../../types/task.type";
 import { WrapPage, WrapTask, WrapHistory } from "./CreateEditTask.styled";
 import ViewTask from "./ViewTask/ViewTask";
@@ -41,7 +41,7 @@ const CreateEditTask: FC<IProps> = ({
       </WrapTask>
       <WrapHistory>
         <h2>Activity</h2>
-        <HistoryList task={task} />
+        <HistoryListTask task={task} />
       </WrapHistory>
     </WrapPage>
   );

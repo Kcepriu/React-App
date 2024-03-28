@@ -11,6 +11,7 @@ import {
   CloseBtn,
   Header,
   Title,
+  Content,
 } from "./MobileMenu.styled";
 
 type Props = {
@@ -86,7 +87,7 @@ export const MobileMenu: FC<Props> = ({
                 )}
               </CloseBtn>
             )}
-            {children}
+            <Content>{children}</Content>
           </ModalContainer>
         </Container>
       </Overlay>,

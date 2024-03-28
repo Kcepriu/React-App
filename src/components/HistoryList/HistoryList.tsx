@@ -1,48 +1,35 @@
-import { FC, useEffect, useState } from "react";
-import { ITask } from "../../types/task.type";
-import httpServices from "../../service/http";
-import { useTaskList } from "../../stores/taskList.store";
-import { showErrorMessage } from "../../helpers/message";
+import { FC } from "react";
 import { IHistory } from "../../types/history.type";
+import HistoryLine from "./HistoryLine/HistoryLine";
+import { paramHistoryService } from "../../helpers/formatHistory";
+import { WrapContent, List } from "./HistoryList.styled";
 
 interface IProps {
-  task: ITask;
+  listHistory: IHistory[];
+  isForOneTask?: boolean;
 }
 
-const HistoryList: FC<IProps> = ({ task }) => {
-  const [setIsLoad] = useTaskList((state) => [state.setIsLoad]);
-
-  const [listHistory, setListHistory] = useState<IHistory[]>([]);
-  useEffect(() => {
-    const fetchData = async (id: number) => {
-      setIsLoad(true);
-      try {
-        const { code, data } = await httpServices.fetchTaskWithHistory(id);
-        setListHistory(code === 200 && !!data ? data.histories : []);
-      } catch (error) {
-        setListHistory([]);
-        showErrorMessage("Error fetch history task");
-      } finally {
-        setIsLoad(false);
-      }
-    };
-
-    const { id } = task;
-    if (id === 0) {
-      setListHistory([]);
-    } else {
-      fetchData(id);
-    }
-  }, [setIsLoad, task]);
+const HistoryList: FC<IProps> = ({ listHistory, isForOneTask = false }) => {
+  const paramsHistory = listHistory.map((lineHistory) =>
+    paramHistoryService.createParamHistory(lineHistory, isForOneTask)
+  );
 
   return (
-    <>
-      <ul>
-        {listHistory.map((element) => (
-          <li key={element.id}>{element.nameTask}</li>
-        ))}
-      </ul>
-    </>
+    <WrapContent>
+      <List>
+        {paramsHistory.map((paramHistory, key) =>
+          paramHistory.operations.map((operationHistory) => (
+            <li key={key}>
+              <HistoryLine
+                paramHistory={paramHistory}
+                operationHistory={operationHistory}
+                isForOneTask={isForOneTask}
+              />
+            </li>
+          ))
+        )}
+      </List>
+    </WrapContent>
   );
 };
 

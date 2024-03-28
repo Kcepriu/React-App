@@ -28,7 +28,6 @@ export const Overlay = styled.div`
 `;
 
 export const Container = styled.div`
-  /* padding: 0 12px; */
   width: 100%;
   height: 100vh;
   display: flex;
@@ -43,25 +42,21 @@ export const ModalContainer = styled.div`
   left: 0;
 
   height: 100%;
-  max-width: 100%;
-  overflow-y: auto;
+  overflow-y: hidden;
   min-width: 250px;
+  max-width: 100%;
 
   background-color: white;
   opacity: 1;
+  padding-bottom: 12px;
 
   transition-property: transform;
   transition-duration: 500ms;
   transition-timing-function: ease-in-out;
-  /* 
-  transform: translateX(-200%);
-
-  [data-is-open="true"] {
-    transform: translateX(5px);
-  } */
 
   @media screen and (min-width: ${(props) => props.theme.BREAKPOINT.desktop}) {
     max-width: 95%;
+    width: 420px;
   }
 `;
 
@@ -91,4 +86,8 @@ export const Header = styled.div`
 export const Title = styled.h1`
   color: white;
   font-size: 24px;
+`;
+export const Content = styled.div`
+  height: 100%;
+  overflow-y: auto;
 `;

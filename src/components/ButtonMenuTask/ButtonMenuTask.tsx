@@ -23,9 +23,10 @@ const ButtonMenuTask: FC<IProps> = ({ task }) => {
   } = useModalWindow({
     contentComponent: (
       <CreateEditTask
-        isEdit={false}
+        isEdit={true}
         task={task}
         handleCloseModal={() => setShowModalEdit(false)}
+        isCloseWindowAfterSave
       />
     ),
   });

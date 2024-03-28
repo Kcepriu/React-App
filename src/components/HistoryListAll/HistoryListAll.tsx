@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import httpServices from "../../service/http";
+import HistoryList from "../HistoryList/HistoryList";
 import { IHistory } from "../../types/history.type";
 import { showErrorMessage } from "../../helpers/message";
 import { useTaskList } from "../../stores/taskList.store";
@@ -25,15 +26,7 @@ const HistoryListAll: FC = () => {
     fetchData();
   }, [setIsLoad]);
 
-  return (
-    <>
-      <ul>
-        {listHistory.map((element) => (
-          <li key={element.id}>{element.nameTask}</li>
-        ))}
-      </ul>
-    </>
-  );
+  return <HistoryList listHistory={listHistory} />;
 };
 
 export default HistoryListAll;
