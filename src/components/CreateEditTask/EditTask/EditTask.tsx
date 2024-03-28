@@ -26,18 +26,35 @@ interface IProps {
   handleSaveTask: () => void;
 }
 const EditTask: FC<IProps> = ({ task, handleSaveTask }) => {
-  const [onlyTasksList] = useTaskList((state) => [state.onlyTasksList]);
+  const [
+    onlyTasksList,
+    updateOperationOk,
+    setUpdateOperationOk,
+    updateTask,
+    createTask,
+    setIsError,
+  ] = useTaskList((state) => [
+    state.onlyTasksList,
+    state.updateOperationOk,
+    state.setUpdateOperationOk,
+    state.updateTask,
+    state.createTask,
+    state.setIsError,
+  ]);
 
   const handlerSubmitForm = async (
     values: ITask,
-    { setSubmitting }: FormikHelpers<ITask>
+    { setSubmitting, resetForm }: FormikHelpers<ITask>
   ) => {
-    // console.log("submit", values);
-    // task = { ...values };
-    // handleSaveTask();
-    // await saveAboutUser(convertToAboutUser(values));
-    // if (addHandlerSubmitForm) addHandlerSubmitForm(values);
-    handleSaveTask();
+    if (values.id === 0) {
+      //Create Task
+      setIsError(true);
+      // await createTask({ ...values });
+      // await createTaskList({ id: 0, name: "", count: 0 });
+    } else {
+      //Update task
+      await updateTask({ ...values });
+    }
   };
 
   const {
@@ -52,10 +69,12 @@ const EditTask: FC<IProps> = ({ task, handleSaveTask }) => {
     initialValues: EmptyTask,
     validationSchema: validationSchema,
     onSubmit: handlerSubmitForm,
+    enableReinitialize: false,
   });
 
   useEffect(() => {
     const { id, name, description, due_date, priority, status } = task;
+    console.log("🚀 ~ task:", task);
     try {
       setFieldValue("id", id);
       setFieldValue("name", name);
@@ -65,6 +84,13 @@ const EditTask: FC<IProps> = ({ task, handleSaveTask }) => {
       setFieldValue("status", status);
     } catch {}
   }, [task, setFieldValue]);
+
+  useEffect(() => {
+    if (updateOperationOk) {
+      setUpdateOperationOk(false);
+      handleSaveTask();
+    }
+  }, [updateOperationOk, setUpdateOperationOk, handleSaveTask]);
 
   const handleChangeDate = (date: Date) => {
     !!date && setFieldValue("due_date", String(date.getTime()));

@@ -41,3 +41,9 @@ export interface IResponseTaskWithHistory {
   code: number;
   message: string;
 }
+
+export interface IResponseTask {
+  data: ITask | null;
+  code: number;
+  message: string;
+}

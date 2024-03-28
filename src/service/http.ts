@@ -6,7 +6,11 @@ import {
 } from "../types/taskList.dto";
 import { ITaskList } from "../types/taskList.type";
 import { IResponseHistoriesWithCode } from "../types/history.type";
-import { IResponseTaskWithHistory } from "../types/task.type";
+import {
+  IResponseTask,
+  IResponseTaskWithHistory,
+  ITask,
+} from "../types/task.type";
 
 class HttpService {
   private instance: AxiosInstance;
@@ -147,7 +151,7 @@ class HttpService {
     }
   }
 
-  // History
+  // * History
   async fetchAllHistory(): Promise<IResponseHistoriesWithCode> {
     try {
       const { status, data } = await this.instance.get(
@@ -169,6 +173,7 @@ class HttpService {
     }
   }
 
+  // * Task
   async fetchTaskWithHistory(id: number): Promise<IResponseTaskWithHistory> {
     try {
       const { status, data } = await this.instance.get(
@@ -187,6 +192,99 @@ class HttpService {
         code: 400,
         data: null,
         message: e.message,
+      };
+    }
+  }
+
+  // * create Task
+  async createTask(task: ITask): Promise<IResponseTask> {
+    const { id, status: statusTask, due_date, ...newTask } = task;
+
+    try {
+      const { status, data } = await this.instance.post(
+        `${BACKEND_ROUTES.TASK}`,
+        { ...newTask, status: statusTask.id, due_date: Number(due_date) }
+      );
+
+      const createdTask = status === 201 ? data : null;
+
+      return {
+        code: status,
+        data: createdTask,
+        message: "",
+      };
+    } catch (error: any) {
+      let axiosMessage = "";
+
+      if (axios.isAxiosError(error)) {
+        axiosMessage = this.createMessageFromError(error as AxiosError);
+      }
+
+      return {
+        code: 400,
+        data: null,
+        message: axiosMessage || error.message,
+      };
+    }
+  }
+
+  // * update Task
+  async updateTask(task: ITask): Promise<IResponseTask> {
+    const { id, status: statusTask, due_date, ...newTask } = task;
+
+    try {
+      const { status, data } = await this.instance.patch(
+        `${BACKEND_ROUTES.TASK}/${id}`,
+        { ...newTask, status: statusTask.id, due_date: Number(due_date) }
+      );
+
+      const updatedTask = status === 200 ? data : null;
+
+      return {
+        code: status,
+        data: updatedTask,
+        message: "",
+      };
+    } catch (error: any) {
+      let axiosMessage = "";
+
+      if (axios.isAxiosError(error)) {
+        axiosMessage = this.createMessageFromError(error as AxiosError);
+      }
+
+      return {
+        code: 400,
+        data: null,
+        message: axiosMessage || error.message,
+      };
+    }
+  }
+
+  // * delete Task
+  async deleteTask(id: number): Promise<IResponseTask> {
+    try {
+      const { status, data } = await this.instance.delete(
+        `${BACKEND_ROUTES.TASK}/${id}`
+      );
+
+      const deletedTask = status === 200 ? data : null;
+
+      return {
+        code: status,
+        data: deletedTask,
+        message: "",
+      };
+    } catch (error: any) {
+      let axiosMessage = "";
+
+      if (axios.isAxiosError(error)) {
+        axiosMessage = this.createMessageFromError(error as AxiosError);
+      }
+
+      return {
+        code: 400,
+        data: null,
+        message: axiosMessage || error.message,
       };
     }
   }

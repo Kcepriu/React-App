@@ -7,14 +7,17 @@ interface IProps {
   task: ITask;
 }
 const MenuMoveTo: FC<IProps> = ({ task }) => {
-  const [onlyTasksList] = useTaskList((state) => [state.onlyTasksList]);
+  const [onlyTasksList, updateTask] = useTaskList((state) => [
+    state.onlyTasksList,
+    state.updateTask,
+  ]);
 
-  const handleOnChange = (event: any) => {
-    const newValue = onlyTasksList.find(
+  const handleOnChange = async (event: any) => {
+    const newStatus = onlyTasksList.find(
       (taskList) => taskList.id === Number(event.target.value)
     );
-    // TODO save Task
-    !!newValue && console.log("to ", newValue);
+
+    !!newStatus && (await updateTask({ ...task, status: newStatus }));
   };
 
   return (

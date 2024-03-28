@@ -52,7 +52,7 @@ const ButtonMenuHeader: FC<IProps> = ({ taskList }) => {
 
   const handleDeleteTaskList = async () => {
     //Delete task list
-    console.log("Delete task list");
+    // console.log("Delete task list");
     await deleteTaskList(taskList);
   };
 

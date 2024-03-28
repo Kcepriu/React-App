@@ -10,12 +10,11 @@ interface IProps {
 }
 
 const HistoryList: FC<IProps> = ({ task }) => {
-  const { id } = task;
   const [setIsLoad] = useTaskList((state) => [state.setIsLoad]);
 
   const [listHistory, setListHistory] = useState<IHistory[]>([]);
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async (id: number) => {
       setIsLoad(true);
       try {
         const { code, data } = await httpServices.fetchTaskWithHistory(id);
@@ -28,8 +27,13 @@ const HistoryList: FC<IProps> = ({ task }) => {
       }
     };
 
-    fetchData();
-  }, [setIsLoad]);
+    const { id } = task;
+    if (id === 0) {
+      setListHistory([]);
+    } else {
+      fetchData(id);
+    }
+  }, [setIsLoad, task]);
 
   return (
     <>

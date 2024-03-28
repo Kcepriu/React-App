@@ -9,11 +9,14 @@ import { Button, Item } from "./ButtonMenuTask.styled";
 
 import "@szhsin/react-menu/dist/index.css";
 import { ITask } from "../../types/task.type";
+import { useTaskList } from "../../stores/taskList.store";
 
 interface IProps {
   task: ITask;
 }
 const ButtonMenuTask: FC<IProps> = ({ task }) => {
+  const [deleteTask] = useTaskList((state) => [state.deleteTask]);
+
   const {
     MobileWindowComponent: MobileWindowComponentEdit,
     setShowModal: setShowModalEdit,
@@ -27,8 +30,8 @@ const ButtonMenuTask: FC<IProps> = ({ task }) => {
     ),
   });
 
-  const handleDeleteTaskList = () => {
-    console.log("Delete task list");
+  const handleDeleteTaskList = async () => {
+    await deleteTask(task);
   };
 
   const handleEditTask = () => {
