@@ -1,3 +1,4 @@
+import { IHistory } from "./history.type";
 import { ITaskList } from "./taskList.type";
 import { EmptyTaskList } from "./taskList.type";
 
@@ -30,3 +31,13 @@ export const EmptyTask: ITask = {
   priority: TypePriority.LOW,
   status: EmptyTaskList,
 };
+
+export interface ITaskWithHistory extends ITask {
+  histories: IHistory[];
+}
+
+export interface IResponseTaskWithHistory {
+  data: ITaskWithHistory | null;
+  code: number;
+  message: string;
+}

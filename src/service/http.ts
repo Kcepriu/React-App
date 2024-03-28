@@ -6,6 +6,7 @@ import {
 } from "../types/taskList.dto";
 import { ITaskList } from "../types/taskList.type";
 import { IResponseHistoriesWithCode } from "../types/history.type";
+import { IResponseTaskWithHistory } from "../types/task.type";
 
 class HttpService {
   private instance: AxiosInstance;
@@ -163,6 +164,28 @@ class HttpService {
       return {
         code: 400,
         data: [],
+        message: e.message,
+      };
+    }
+  }
+
+  async fetchTaskWithHistory(id: number): Promise<IResponseTaskWithHistory> {
+    try {
+      const { status, data } = await this.instance.get(
+        `${BACKEND_ROUTES.TASK}/${id}`
+      );
+
+      const task = status === 200 ? data : [];
+
+      return {
+        code: status,
+        data: task,
+        message: "",
+      };
+    } catch (e: any) {
+      return {
+        code: 400,
+        data: null,
         message: e.message,
       };
     }

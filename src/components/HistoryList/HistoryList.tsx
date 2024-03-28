@@ -1,25 +1,43 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { ITask } from "../../types/task.type";
+import httpServices from "../../service/http";
+import { useTaskList } from "../../stores/taskList.store";
+import { showErrorMessage } from "../../helpers/message";
+import { IHistory } from "../../types/history.type";
 
 interface IProps {
   task: ITask;
 }
 
 const HistoryList: FC<IProps> = ({ task }) => {
+  const { id } = task;
+  const [setIsLoad] = useTaskList((state) => [state.setIsLoad]);
+
+  const [listHistory, setListHistory] = useState<IHistory[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoad(true);
+      try {
+        const { code, data } = await httpServices.fetchTaskWithHistory(id);
+        setListHistory(code === 200 && !!data ? data.histories : []);
+      } catch (error) {
+        setListHistory([]);
+        showErrorMessage("Error fetch history task");
+      } finally {
+        setIsLoad(false);
+      }
+    };
+
+    fetchData();
+  }, [setIsLoad]);
+
   return (
     <>
-      <p>Line 1</p>
-      <p>Line 2</p>
-      <p>Line 3</p>
-      <p>Line 4</p>
-      <p>Line 5</p>
-      <p>Line 6</p>
-      <p>Line 7</p>
-      <p>Line 8</p>
-      <p>Line 9</p>
-      <p>Line 10</p>
-      <p>Line 11</p>
-      <p>Line 12</p>
+      <ul>
+        {listHistory.map((element) => (
+          <li key={element.id}>{element.nameTask}</li>
+        ))}
+      </ul>
     </>
   );
 };
