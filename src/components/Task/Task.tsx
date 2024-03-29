@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { FiCalendar } from "react-icons/fi";
 import { ITask } from "../../types/task.type";
 import ButtonMenuTask from "../ButtonMenuTask/ButtonMenuTask";
@@ -19,6 +19,7 @@ interface IProps {
 }
 const Task: FC<IProps> = ({ task }) => {
   const { name, description, due_date, priority } = task;
+  const [isHovered, setIsHovered] = useState(false);
   const {
     MobileWindowComponent: MobileWindowComponentEdit,
     setShowModal: setShowModalEdit,
@@ -39,13 +40,17 @@ const Task: FC<IProps> = ({ task }) => {
 
   return (
     <>
-      <WrapCard>
+      <WrapCard data-is-hover={isHovered}>
         <WrapHeader>
           <h2>{name}</h2>
           <ButtonMenuTask task={task} />
         </WrapHeader>
 
-        <WrapContend onClick={handleOpenTask}>
+        <WrapContend
+          onClick={handleOpenTask}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
           <p>{description}</p>
           <WrapDate>
             <FiCalendar size={24} />

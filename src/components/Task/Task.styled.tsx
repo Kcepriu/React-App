@@ -7,6 +7,9 @@ export const WrapCard = styled.div`
   border: 1px solid gray;
   border-radius: 4px;
   padding: 8px;
+  &[data-is-hover="true"] {
+    border-color: blue;
+  }
 `;
 
 export const WrapHeader = styled.div`

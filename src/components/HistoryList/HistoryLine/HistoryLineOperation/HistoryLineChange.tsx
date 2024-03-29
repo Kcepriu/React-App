@@ -30,9 +30,12 @@ const HistoryLineChange: FC<IProps> = ({
         <Text>{`${who} ${nameOperation}`}</Text>
         {!isForOneTask && <NameTask> {nameTask} </NameTask>}
         <Text> from </Text>
-        <ChangedParameter> {from} </ChangedParameter>
+        <ChangedParameter data-is-task={isForOneTask}>
+          {" "}
+          {from}{" "}
+        </ChangedParameter>
         <Text> to </Text>
-        <ChangedParameter> {to} </ChangedParameter>
+        <ChangedParameter data-is-task={isForOneTask}> {to} </ChangedParameter>
       </p>
 
       <DateTask>{date}</DateTask>
