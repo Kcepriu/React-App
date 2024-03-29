@@ -1,9 +1,7 @@
 import { FC } from "react";
-import { IHistory } from "../../../types/history.type";
 import {
   IOperationHistory,
   IParamHistory,
-  paramHistoryService,
 } from "../../../helpers/formatHistory";
 import HistoryLineAdd from "./HistoryLineOperation/HistoryLineAdd";
 import HistoryLineDelete from "./HistoryLineOperation/HistoryLineDelete";

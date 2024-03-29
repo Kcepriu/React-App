@@ -34,3 +34,9 @@ export const WrapDescription = styled.div`
   margin-top: 16px;
   height: 155px;
 `;
+
+export const Priority = styled.p`
+  &::first-letter {
+    text-transform: uppercase;
+  }
+`;

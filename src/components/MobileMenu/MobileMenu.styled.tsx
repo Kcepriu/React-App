@@ -42,13 +42,15 @@ export const ModalContainer = styled.div`
   left: 0;
 
   height: 100%;
+  display: flex;
+  flex-direction: column;
+
   overflow-y: hidden;
   min-width: 250px;
   max-width: 100%;
 
   background-color: white;
   opacity: 1;
-  padding-bottom: 12px;
 
   transition-property: transform;
   transition-duration: 500ms;
@@ -58,6 +60,11 @@ export const ModalContainer = styled.div`
     max-width: 95%;
     width: 420px;
   }
+`;
+export const Content = styled.div`
+  padding-bottom: 12px;
+  flex-grow: 1;
+  overflow: hidden;
 `;
 
 export const CloseBtn = styled.button`
@@ -86,8 +93,4 @@ export const Header = styled.div`
 export const Title = styled.h1`
   color: white;
   font-size: 24px;
-`;
-export const Content = styled.div`
-  height: 100%;
-  overflow-y: auto;
 `;

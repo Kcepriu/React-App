@@ -7,11 +7,10 @@ interface IProps {
 }
 
 const InitialStore: FC<IProps> = ({ children }) => {
-  const [fetchTasksList] = useTaskList((state) => [state.fetchTasksList]);
-  // const [fetchTasksList, isLoadTaskList] = useTaskList((state) => [
-  //   state.fetchTasksList,
-  //   state.isLoad,
-  // ]);
+  const [fetchTasksList, isLoadTaskList] = useTaskList((state) => [
+    state.fetchTasksList,
+    state.isLoad,
+  ]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,7 +22,7 @@ const InitialStore: FC<IProps> = ({ children }) => {
   return (
     <>
       {children}
-      {/* {!!isLoadTaskList && <MainLoader />} */}
+      {!!isLoadTaskList && <MainLoader />}
     </>
   );
 };

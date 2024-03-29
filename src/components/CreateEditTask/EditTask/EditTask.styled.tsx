@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { Select } from "@mui/material";
+
 export const WrapTitle = styled.div`
   display: flex;
   justify-content: space-between;
@@ -24,6 +26,7 @@ export const TitleLine = styled.div`
   display: flex;
   gap: 12px;
   width: 150px;
+  min-width: 150px;
 `;
 
 export const TitleDescription = styled.h3`
@@ -33,4 +36,16 @@ export const TitleDescription = styled.h3`
 export const WrapDescription = styled.div`
   margin-top: 16px;
   height: 155px;
+`;
+
+export const SelectPriority = styled(Select)`
+  .MuiSelect-select::first-letter {
+    text-transform: uppercase;
+  }
+`;
+
+export const TextSelectPriority = styled.span`
+  &::first-letter {
+    text-transform: uppercase;
+  }
 `;

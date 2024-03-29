@@ -27,7 +27,7 @@ export const EmptyTask: ITask = {
   id: 0,
   name: "",
   description: "",
-  due_date: String(Date.now()),
+  due_date: "",
   priority: TypePriority.LOW,
   status: EmptyTaskList,
 };

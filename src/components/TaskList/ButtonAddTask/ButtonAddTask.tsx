@@ -17,7 +17,8 @@ const ButtonAddTask: FC<IProps> = ({ taskList }) => {
     contentComponent: (
       <CreateEditTask
         isEdit={true}
-        task={{ ...EmptyTask, status: taskListWithoutCount }}
+        task={EmptyTask}
+        currentStatus={taskListWithoutCount}
         handleCloseModal={() => setShowModal(false)}
         isCloseWindowAfterSave
       />

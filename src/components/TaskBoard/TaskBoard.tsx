@@ -5,18 +5,22 @@ import { showErrorMessage } from "../../helpers/message";
 import { List, ElementList } from "./TaskBoard.styled";
 
 const TaskBoard: FC = () => {
-  const [tasksList] = useTaskList((state) => [state.tasksList]);
+  const [tasksList, isError, messageError, setIsError] = useTaskList(
+    (state) => [
+      state.tasksList,
+      state.isError,
 
-  // TODO
-  // const [tasksList, isError, messageError] = useTaskList((state) => [
-  //   state.tasksList,
-  //   state.isError,
-  //   state.messageError,
-  // ]);
+      state.messageError,
+      state.setIsError,
+    ]
+  );
 
-  // useEffect(() => {
-  //   isError && showErrorMessage(messageError);
-  // }, [isError, messageError]);
+  useEffect(() => {
+    if (isError) {
+      showErrorMessage(messageError);
+      setIsError(false);
+    }
+  }, [isError, messageError, setIsError]);
 
   return (
     <div>

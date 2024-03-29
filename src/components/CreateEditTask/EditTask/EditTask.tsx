@@ -17,29 +17,31 @@ import {
   TitleDescription,
   WrapDescription,
   WrapTitle,
+  SelectPriority,
+  TextSelectPriority,
 } from "./EditTask.styled";
 import "react-datepicker/dist/react-datepicker.css";
 import { useTaskList } from "../../../stores/taskList.store";
+import { ITaskList } from "../../../types/taskList.type";
 
 interface IProps {
   task: ITask;
+  currentStatus: ITaskList;
   handleSaveTask: () => void;
 }
-const EditTask: FC<IProps> = ({ task, handleSaveTask }) => {
+const EditTask: FC<IProps> = ({ task, currentStatus, handleSaveTask }) => {
   const [
     onlyTasksList,
     updateOperationOk,
     setUpdateOperationOk,
     updateTask,
     createTask,
-    setIsError,
   ] = useTaskList((state) => [
     state.onlyTasksList,
     state.updateOperationOk,
     state.setUpdateOperationOk,
     state.updateTask,
     state.createTask,
-    state.setIsError,
   ]);
 
   const handlerSubmitForm = async (
@@ -47,11 +49,10 @@ const EditTask: FC<IProps> = ({ task, handleSaveTask }) => {
     { setSubmitting, resetForm }: FormikHelpers<ITask>
   ) => {
     if (values.id === 0) {
-      //Create Task
-      setIsError(true);
-      // await createTask({ ...values });
+      // * Create Task
+      await createTask({ ...values });
     } else {
-      //Update task
+      // * Update task
       await updateTask({ ...values });
     }
   };
@@ -72,17 +73,19 @@ const EditTask: FC<IProps> = ({ task, handleSaveTask }) => {
   });
 
   useEffect(() => {
-    const { id, name, description, due_date, priority, status } = task;
-    console.log("🚀 ~ task:", task);
+    const { id, name, description, due_date, priority } = task;
     try {
       setFieldValue("id", id);
       setFieldValue("name", name);
       setFieldValue("description", description);
-      setFieldValue("due_date", due_date);
+      setFieldValue("due_date", due_date ? due_date : String(Date.now()));
       setFieldValue("priority", priority);
-      setFieldValue("status", status);
     } catch {}
   }, [task, setFieldValue]);
+
+  useEffect(() => {
+    setFieldValue("status", currentStatus);
+  }, [currentStatus, setFieldValue]);
 
   useEffect(() => {
     if (updateOperationOk) {
@@ -138,6 +141,7 @@ const EditTask: FC<IProps> = ({ task, handleSaveTask }) => {
                 onBlur={handleBlur}
                 error={touched.status && Boolean(errors.status)}
                 size="small"
+                style={{ width: "215px" }}
               >
                 {onlyTasksList.map((status) => {
                   return (
@@ -167,7 +171,7 @@ const EditTask: FC<IProps> = ({ task, handleSaveTask }) => {
               <LiaShirtsinbulk size={24} />
               Priority
             </TitleLine>
-            <Select
+            <SelectPriority
               id="priority"
               labelId="priority"
               name="priority"
@@ -177,13 +181,14 @@ const EditTask: FC<IProps> = ({ task, handleSaveTask }) => {
               onBlur={handleBlur}
               error={touched.priority && Boolean(errors.priority)}
               size="small"
+              style={{ width: "215px" }}
             >
               {Object.values(TypePriority).map((priority) => (
                 <MenuItem value={priority} key={priority}>
-                  {priority}
+                  <TextSelectPriority>{priority}</TextSelectPriority>
                 </MenuItem>
               ))}
-            </Select>
+            </SelectPriority>
           </LineInformation>
         </WrapInformation>
 

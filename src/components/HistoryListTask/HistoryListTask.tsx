@@ -1,10 +1,11 @@
 import { FC, useEffect, useState } from "react";
 import { ITask } from "../../types/task.type";
-import httpServices from "../../service/http";
+import { httpServices } from "../../service/http";
 import { useTaskList } from "../../stores/taskList.store";
 import { showErrorMessage } from "../../helpers/message";
 import { IHistory } from "../../types/history.type";
 import HistoryList from "../HistoryList/HistoryList";
+import { WrapHistory } from "./HistoryListTask.styled";
 
 interface IProps {
   task: ITask;
@@ -36,7 +37,11 @@ const HistoryListTask: FC<IProps> = ({ task }) => {
     }
   }, [setIsLoad, task]);
 
-  return <HistoryList listHistory={listHistory} isForOneTask />;
+  return (
+    <WrapHistory>
+      <HistoryList listHistory={listHistory} isForOneTask />
+    </WrapHistory>
+  );
 };
 
 export default HistoryListTask;

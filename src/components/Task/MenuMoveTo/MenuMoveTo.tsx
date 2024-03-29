@@ -22,8 +22,8 @@ const MenuMoveTo: FC<IProps> = ({ task }) => {
 
   return (
     <>
-      <Select name="moveTo" onChange={handleOnChange}>
-        <option value="" disabled selected hidden>
+      <Select name="moveTo" onChange={handleOnChange} defaultValue="header">
+        <option value="header" disabled hidden>
           Move to:
         </option>
         {onlyTasksList.map((taskList) =>

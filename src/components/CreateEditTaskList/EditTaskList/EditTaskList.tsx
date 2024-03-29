@@ -36,7 +36,6 @@ const EditTaskList: FC<IProps> = ({ taskList, handleSave }) => {
     if (values.id === 0) {
       //Create Task list
       await createTaskList({ ...values });
-      // await createTaskList({ id: 0, name: "", count: 0 });
     } else {
       //Update task list
       await updateTaskList({ ...values });

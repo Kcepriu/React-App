@@ -25,6 +25,7 @@ const ButtonMenuTask: FC<IProps> = ({ task }) => {
       <CreateEditTask
         isEdit={true}
         task={task}
+        currentStatus={task.status}
         handleCloseModal={() => setShowModalEdit(false)}
         isCloseWindowAfterSave
       />

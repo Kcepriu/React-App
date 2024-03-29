@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import httpServices from "../service/http";
+import {httpServices} from "../service/http";
 import {
   ITaskListWithTask,
   ITaskListWithCount,

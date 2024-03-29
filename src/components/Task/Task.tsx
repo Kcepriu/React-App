@@ -27,6 +27,7 @@ const Task: FC<IProps> = ({ task }) => {
       <CreateEditTask
         isEdit={false}
         task={task}
+        currentStatus={task.status}
         handleCloseModal={() => setShowModalEdit(false)}
       />
     ),

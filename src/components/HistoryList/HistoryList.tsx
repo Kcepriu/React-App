@@ -17,9 +17,9 @@ const HistoryList: FC<IProps> = ({ listHistory, isForOneTask = false }) => {
   return (
     <WrapContent>
       <List>
-        {paramsHistory.map((paramHistory, key) =>
-          paramHistory.operations.map((operationHistory) => (
-            <li key={key}>
+        {paramsHistory.map((paramHistory, index1) =>
+          paramHistory.operations.map((operationHistory, index2) => (
+            <li key={`${index1}-${index2}`}>
               <HistoryLine
                 paramHistory={paramHistory}
                 operationHistory={operationHistory}

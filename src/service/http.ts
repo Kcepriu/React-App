@@ -290,6 +290,4 @@ class HttpService {
   }
 }
 
-const httpServices = new HttpService();
-
-export default httpServices;
+export const httpServices = new HttpService();

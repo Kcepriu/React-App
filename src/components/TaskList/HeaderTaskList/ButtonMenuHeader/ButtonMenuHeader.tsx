@@ -29,7 +29,8 @@ const ButtonMenuHeader: FC<IProps> = ({ taskList }) => {
     contentComponent: (
       <CreateEditTask
         isEdit={true}
-        task={{ ...EmptyTask, status: taskListWithoutCount }}
+        task={EmptyTask}
+        currentStatus={taskListWithoutCount}
         handleCloseModal={() => setShowModalCreate(false)}
         isCloseWindowAfterSave
       />
@@ -50,19 +51,18 @@ const ButtonMenuHeader: FC<IProps> = ({ taskList }) => {
     ),
   });
 
+  // * Delete task list
   const handleDeleteTaskList = async () => {
-    //Delete task list
-    // console.log("Delete task list");
     await deleteTaskList(taskList);
   };
 
+  // * Edit task list
   const handleEditTaskList = () => {
-    //Edit task list
     setShowModalEdit(true);
   };
 
+  // * Create task list
   const handleCreateTask = () => {
-    // Create task list
     setShowModalCreate(true);
   };
 

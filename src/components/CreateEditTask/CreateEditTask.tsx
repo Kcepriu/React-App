@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import HistoryListTask from "../HistoryListTask/HistoryListTask";
 import { ITask } from "../../types/task.type";
+import { ITaskList } from "../../types/taskList.type";
 import { WrapPage, WrapTask, WrapHistory } from "./CreateEditTask.styled";
 import ViewTask from "./ViewTask/ViewTask";
 import EditTask from "./EditTask/EditTask";
@@ -10,11 +11,13 @@ interface IProps {
   task: ITask;
   handleCloseModal: () => void;
   isCloseWindowAfterSave?: boolean;
+  currentStatus: ITaskList;
 }
 
 const CreateEditTask: FC<IProps> = ({
   isEdit,
   task,
+  currentStatus,
   handleCloseModal,
   isCloseWindowAfterSave = false,
 }) => {
@@ -36,7 +39,11 @@ const CreateEditTask: FC<IProps> = ({
         {onlyView ? (
           <ViewTask task={task} handleEditTask={handleEditTask} />
         ) : (
-          <EditTask task={task} handleSaveTask={handleSaveTask} />
+          <EditTask
+            task={task}
+            currentStatus={currentStatus}
+            handleSaveTask={handleSaveTask}
+          />
         )}
       </WrapTask>
       <WrapHistory>

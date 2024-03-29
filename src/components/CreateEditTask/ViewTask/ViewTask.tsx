@@ -12,6 +12,7 @@ import {
   TitleDescription,
   WrapDescription,
   WrapTitle,
+  Priority,
 } from "./ViewTask.styled";
 
 interface IProps {
@@ -53,7 +54,7 @@ const ViewTask: FC<IProps> = ({ task, handleEditTask }) => {
             <LiaShirtsinbulk size={24} />
             Priority
           </TitleLine>
-          <p>{priority}</p>
+          <Priority>{priority}</Priority>
         </LineInformation>
       </WrapInformation>
       <TitleDescription>Description</TitleDescription>
