@@ -19,13 +19,6 @@ export const WrapContend = styled.div`
   flex-direction: column;
   gap: 8px;
   cursor: pointer;
-
-  /* &:hover {
-    background-color: blue;
-    WrapCard {
-      border-color: blue;
-    }
-  } */
 `;
 
 export const Button = styled.button`
