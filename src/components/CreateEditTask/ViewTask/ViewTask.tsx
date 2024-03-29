@@ -13,6 +13,7 @@ import {
   WrapDescription,
   WrapTitle,
   Priority,
+  Description,
 } from "./ViewTask.styled";
 
 interface IProps {
@@ -57,9 +58,10 @@ const ViewTask: FC<IProps> = ({ task, handleEditTask }) => {
           <Priority>{priority}</Priority>
         </LineInformation>
       </WrapInformation>
+
       <TitleDescription>Description</TitleDescription>
       <WrapDescription>
-        <p>{description}</p>
+        <Description>{description}</Description>
       </WrapDescription>
     </>
   );

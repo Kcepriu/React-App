@@ -3,9 +3,18 @@ import styled from "styled-components";
 import { Select } from "@mui/material";
 
 export const WrapTitle = styled.div`
+  width: 100%;
   display: flex;
-  justify-content: space-between;
-  height: 60px;
+  flex-direction: column-reverse;
+  gap: 8px;
+  justify-content: start;
+
+  @media screen and (min-width: ${(props) => props.theme.BREAKPOINT.tablet}) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+  }
 `;
 
 export const WrapInformation = styled.div`
@@ -19,14 +28,18 @@ export const LineInformation = styled.div`
   display: flex;
   align-items: center;
   height: 40px;
+  overflow-x: hidden;
 `;
 
 export const TitleLine = styled.div`
   color: #5a5959;
   display: flex;
   gap: 12px;
-  width: 150px;
-  min-width: 150px;
+  min-width: 115px;
+
+  @media screen and (min-width: ${(props) => props.theme.BREAKPOINT.tablet}) {
+    width: 130px;
+  }
 `;
 
 export const TitleDescription = styled.h3`
@@ -48,4 +61,11 @@ export const TextSelectPriority = styled.span`
   &::first-letter {
     text-transform: uppercase;
   }
+`;
+
+export const WrapDate = styled.div`
+  display: block;
+
+  max-width: 215px;
+  width: auto;
 `;

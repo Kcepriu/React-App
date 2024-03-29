@@ -15,4 +15,8 @@ export const WrapHeader = styled.div`
 export const WrapButton = styled.div`
   display: flex;
   gap: 12px;
+  justify-content: space-between;
+  @media screen and (min-width: ${(props) => props.theme.BREAKPOINT.tablet}) {
+    justify-content: end;
+  }
 `;

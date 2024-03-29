@@ -19,10 +19,12 @@ import {
   WrapTitle,
   SelectPriority,
   TextSelectPriority,
+  WrapDate,
 } from "./EditTask.styled";
-import "react-datepicker/dist/react-datepicker.css";
 import { useTaskList } from "../../../stores/taskList.store";
 import { ITaskList } from "../../../types/taskList.type";
+import "react-datepicker/dist/react-datepicker.css";
+import "./EditTask.css";
 
 interface IProps {
   task: ITask;
@@ -159,11 +161,13 @@ const EditTask: FC<IProps> = ({ task, currentStatus, handleSaveTask }) => {
               <LuCalendar size={24} />
               Due date
             </TitleLine>
-            <DatePicker
-              selected={new Date(Number(values.due_date))}
-              onChange={handleChangeDate}
-              dateFormat="EEE, dd LLL"
-            />
+            <WrapDate>
+              <DatePicker
+                selected={new Date(Number(values.due_date))}
+                onChange={handleChangeDate}
+                dateFormat="EEE, dd LLL"
+              />
+            </WrapDate>
           </LineInformation>
 
           <LineInformation>

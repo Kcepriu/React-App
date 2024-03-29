@@ -8,7 +8,7 @@ import {
 import { validationSchema } from "./validationSchema";
 import ButtonEditSave from "../../ButtonEditSave/ButtonEditSave";
 
-import { WrapTitle } from "./EditTaskList.styled";
+import { WrapTitle, WrapButton } from "./EditTaskList.styled";
 import { useTaskList } from "../../../stores/taskList.store";
 
 interface IProps {
@@ -84,11 +84,14 @@ const EditTaskList: FC<IProps> = ({ taskList, handleSave }) => {
           onBlur={handleBlur}
           error={touched.name && Boolean(errors.name)}
           helperText={touched.name && errors.name}
+          fullWidth
         />
-        <ButtonEditSave
-          handleButton={() => handleSubmit()}
-          title="Save Task list"
-        />
+        <WrapButton>
+          <ButtonEditSave
+            handleButton={() => handleSubmit()}
+            title="Save Task list"
+          />
+        </WrapButton>
       </WrapTitle>
     </form>
   );

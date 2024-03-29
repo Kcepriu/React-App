@@ -6,6 +6,8 @@ export const Button = styled(MenuButton)`
   align-items: center;
   cursor: pointer;
   border: none;
+  width: 36px;
+  height: 36px;
   background-color: white;
   &:hover {
     color: #bbb2e9;
